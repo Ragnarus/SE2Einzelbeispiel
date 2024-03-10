@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
         Button btnAbschicken = findViewById(R.id.cmdAbschicken);
+        Button btnAQuersumme = findViewById(R.id.cmdAQuersumme);
         TextView textServerAntwort = findViewById(R.id.txtServerAntwort);
         EditText textMartikelnummer = findViewById(R.id.editMartikelnummer);
 
@@ -65,6 +66,31 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 }).start();
+            }
+        });
+
+        btnAQuersumme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String textMartikel = String.valueOf(textMartikelnummer.getText());
+                int sum =0;
+                boolean add = true;
+
+                for(int i=0;i<textMartikel.length();i++){
+                    int zahl = Character.getNumericValue(textMartikel.charAt(i));
+                    if(add){
+                        sum = sum + zahl;
+                    }else {
+                        sum = sum - zahl;
+                    }
+                    add = !add;
+                }
+
+                if(sum%2 ==0){
+                    textServerAntwort.setText(sum+" ist gerade");
+                } else {
+                    textServerAntwort.setText(sum+" ist ungerade");
+                }
             }
         });
     }
